@@ -69,3 +69,31 @@
 .ion-grid-text-color-subtitle {
   color: rgb(219 234 254);
 }
+
+.ion-grid-column-estatisticas {
+  --ion-grid-column-padding: 5px;
+}
+
+.ion-grid-column-color-danger-light {
+  background-color: rgba(197, 0, 16, 0.050); //hex da cor #c5000f
+}
+
+.ion-grid-column-color-success-light {
+  background-color: rgba(43, 181, 93, 0.050); //hex da cor #c5000f
+}
+
+.estatisticas-text-size {
+  font-size: 250%;
+  font-weight: 700;
+}
+
+.estatisticas-text-color-danger {
+  color: #c5000f;
+}
+
+.estatististicas-text-color-success {
+  color: #2bb55d;
+}
+
+
+
