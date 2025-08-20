@@ -25,3 +25,47 @@
 #container a {
   text-decoration: none;
 }
+
+.text-color-white {
+  color: #fff;
+}
+
+/*.item-border-radius {
+  border-radius: 15px;
+}´
+
+.item-padding {
+  padding-top: 50px;
+}*/
+
+.ion-grid-column-padding {
+  --ion-grid-column-padding: 20px;
+}
+
+.ion-grid-text-color {
+  color: #fff;
+}
+
+.ion-grid-border-radius {
+  border-radius: 15px;
+}
+
+.ion-grid-column-color-primary {
+  background-color: #0054e9;
+}
+
+.ion-grid-column-color-light {
+  background-color: #f4f5f8;
+}
+
+.ion-grid-column-margin {
+  margin-bottom: 10px;
+}
+
+.ion-grid-column-padding-title {
+  --ion-grid-column-padding: 3px;
+}
+
+.ion-grid-text-color-subtitle {
+  color: rgb(219 234 254);
+}
