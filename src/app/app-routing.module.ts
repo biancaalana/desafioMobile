@@ -11,6 +11,18 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'checklist',
+    loadChildren: () => import('./inspecao/checklist/checklist.module').then( m => m.ChecklistPageModule)
+  },
+  {
+    path: 'detalhes',
+    loadChildren: () => import('./inspecao/detalhes/detalhes.module').then( m => m.DetalhesPageModule)
+  },
+  {
+    path: 'resumo',
+    loadChildren: () => import('./inspecao/resumo/resumo.module').then( m => m.ResumoPageModule)
+  },
 ];
 
 @NgModule({
