@@ -13,4 +13,11 @@ export class ChecklistPage implements OnInit {
   ngOnInit() {
   }
 
+  isSelected = false; // Estado inicial do botão
+
+      toggleSelection() {
+        this.isSelected = !this.isSelected;
+        // Aqui você pode adicionar a lógica para o seu botão selecionar ou deselecionar
+      }
+
 }
