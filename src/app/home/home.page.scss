@@ -1,6 +1,5 @@
 #container {
   text-align: center;
-
   position: absolute;
   left: 0;
   right: 0;
@@ -9,16 +8,12 @@
 }
 
 #container strong {
-  font-size: 20px;
-  line-height: 26px;
+  font-size: 18px;
 }
 
 #container p {
   font-size: 16px;
-  line-height: 22px;
-
   color: #8c8c8c;
-
   margin: 0;
 }
 
@@ -31,7 +26,7 @@
 }
 
 .ion-grid-column-padding {
-  --ion-grid-column-padding: 20px;
+  --ion-grid-column-padding: 15px;
 }
 
 .ion-grid-text-color {
@@ -39,7 +34,7 @@
 }
 
 .ion-grid-border-radius {
-  border-radius: 15px;
+  border-radius: 10px !important;
 }
 
 .ion-grid-column-color-primary {
@@ -55,11 +50,7 @@
 }
 
 .ion-grid-column-padding-title {
-  --ion-grid-column-padding: 3px;
-}
-
-.ion-grid-text-color-subtitle {
-  color: rgb(219 234 254);
+  --ion-grid-column-padding: 0px;
 }
 
 .ion-grid-column-estatisticas {
@@ -67,25 +58,106 @@
 }
 
 .ion-grid-column-color-danger-light {
-  background-color: rgba(197, 0, 16, 0.050); //hex da cor #c5000f
+  background-color: rgba(197, 0, 16, 0.11); //hex da cor #c5000f
 }
 
 .ion-grid-column-color-success-light {
-  background-color: rgba(43, 181, 93, 0.050); //hex da cor #c5000f
+  background-color: rgba(53, 185, 101, 0.123); //hex da cor #c5000f
 }
 
 .estatisticas-text-size {
-  font-size: 250%;
+  font-size: 200%;
   font-weight: 700;
 }
 
-.estatisticas-text-color-danger {
-  color: #c5000f;
+
+// titulos Menu Principal e estatisticas rapidas
+.titulo {
+  color: rgba(0, 0, 0, 0.781);
+  font-weight: 600;
 }
 
-.estatististicas-text-color-success {
-  color: #2bb55d;
+//nova inspecao
+.ion-grid-column-color-primary {
+  background-color: #0054e9;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.ion-grid-column-color-primary ion-item {
+  --background: transparent;
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+.texto-branco ion-card-title,
+.texto-branco ion-card-subtitle,
+.texto-branco ion-icon {
+  color: white;
 }
 
 
 
+// historico
+.ion-grid-column-color-light {
+  background-color: #e4e4e4 !important;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.ion-grid-column-color-light ion-item {
+  --background: transparent;
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+.texto-preto ion-card-title,
+.texto-preto ion-card-subtitle,
+.texto-preto ion-icon {
+  color: black;
+}
+
+
+
+// FUNDO PAGINA
+ion-content {
+  --background: #dbe9ff; 
+}
+
+.ion-grid-column-color-light,
+ion-card {
+  background-color: #ffffff;
+  border-radius: 15px;
+}
+
+ion-card {
+  margin: 20px !important;
+  padding: 10px;
+}
+
+
+//titulo e subtitulo principais
+ion-toolbar {
+  --background: #0054e9;
+  padding: 15px !important;
+}
+
+.toolbar-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.titulo-principal {
+  color: #ffffff;
+  font-weight: 700; 
+  font-size: 18px;  
+  padding-bottom: 5px;
+}
+
+.subtitulo-secundario {
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+// estatisticas 
