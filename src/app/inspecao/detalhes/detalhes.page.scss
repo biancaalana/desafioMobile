@@ -1,0 +1,39 @@
+// fundo pagina
+ion-content {
+    --background: #dbe9ff;
+}
+
+ion-card {
+    border-radius: 15px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    margin: 20px !important;
+    padding: 10px;
+}
+
+//titulo e subtitulo principais
+ion-toolbar {
+    padding: 15px !important;
+}
+
+.toolbar-titles {
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo-principal {
+    color: #ffffff;
+    font-weight: 700; 
+    font-size: 18px;  
+    padding-bottom: 5px;
+}
+
+.subtitulo-secundario {
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.titulo {
+    color: rgba(0, 0, 0, 0.781);
+    font-weight: 600;
+}

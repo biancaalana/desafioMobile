@@ -1,13 +1,72 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>resumo</ion-title>
+    <!-- Botão de voltar -->
+    <ion-buttons slot="start" style="color: white">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+
+    <!-- Título principal e secundário -->
+    <div class="toolbar-titles">
+      <span class="titulo-principal">Resumo da Inspeção</span>
+      <span class="subtitulo-secundario">Revisar antes de finalizar</span>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">resumo</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="titulo">Informações Gerais</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col><strong>Setor:</strong> {{ setor }}</ion-col>
+        <ion-col><strong>Data:</strong> {{ data }}</ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col><strong>Início:</strong> {{ inicio }}</ion-col>
+        <ion-col><strong>Término:</strong> {{ termino }}</ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="titulo">Checklist de EPIs</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="6"><strong>EPIs Obrigatórios:</strong></ion-col>
+          <ion-col size="6">{{ epiObrigatorio }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6"><strong>Funcionários Usando EPIs:</strong></ion-col>
+          <ion-col size="6">{{ usandoEpi }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6"><strong>Estado de Conservação:</strong></ion-col>
+          <ion-col size="6">{{ estadoEpi }}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6"><strong>Armazenamento Adequado:</strong></ion-col>
+          <ion-col size="6">{{ armazenamentoEpi }}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="titulo">Estatísticas</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col><strong>Total:</strong> {{ totalFuncionarios }}</ion-col>
+        <ion-col><strong>Usando EPI:</strong> {{ totalUsando }}</ion-col>
+        <ion-col><strong>Não Usando:</strong> {{ totalNaoUsando }}</ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

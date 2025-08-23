@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-detalhes',
@@ -8,9 +9,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetalhesPage implements OnInit {
 
-  constructor() { }
+  descricaoAtividade: string = '';
+  observacoes: string = '';
+  novoColaborador: string = '';
+  colaboradores: string[] = [];
 
-  ngOnInit() {
+  constructor(private router: Router) { }
+
+  ngOnInit() { }
+
+  adicionarColaborador() {
+    if(this.novoColaborador.trim() !== '') {
+      this.colaboradores.push(this.novoColaborador.trim());
+      this.novoColaborador = '';
+    }
   }
 
+  removerColaborador(index: number) {
+    this.colaboradores.splice(index, 1);
+  }
+
+  enviarResumo() {
+    // Aqui você pode salvar os dados em um serviço ou passar via rota/state
+    // Exemplo usando NavigationExtras (Angular Router):
+    this.router.navigate(['/resumo'], {
+      state: {
+        descricao: this.descricaoAtividade,
+        observacoes: this.observacoes,
+        colaboradores: this.colaboradores
+      }
+    });
+  }
 }

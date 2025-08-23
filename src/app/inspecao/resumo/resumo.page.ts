@@ -8,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResumoPage implements OnInit {
 
+  // Variáveis que vão alimentar os cards do resumo
+  setor = 'Produção';
+  data = '23/08/2025';
+  inicio = '08:00';
+  termino = '12:00';
+
+  epiObrigatorio = 'SIM';
+  usandoEpi = 'SIM';
+  estadoEpi = 'SATISFATÓRIO';
+  armazenamentoEpi = 'SIM';
+
+  totalFuncionarios = 20;
+  totalUsando = 18;
+  totalNaoUsando = 2;
+
   constructor() { }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
 }

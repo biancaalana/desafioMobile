@@ -1,16 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon name="ellipsis-vertical" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-
-    <ion-buttons slot="start">
+    <ion-buttons slot="start" style="color: white">
       <ion-back-button></ion-back-button>
     </ion-buttons>
 
-    <ion-title>Inspeção de Segurança</ion-title>
+    <div class="toolbar-titles">
+      <span class="titulo-principal">Inspeção de Segurança</span>
+      <span class="subtitulo-secundario">Checklist de EPIs</span>
+    </div>
   </ion-toolbar>
 </ion-header>
 
@@ -24,16 +21,19 @@
     </ion-card-header>
     <ion-card-content>
       <ion-grid>
+
         <ion-row>
           <ion-col>
             <ion-label color="dark">Setor</ion-label>
           </ion-col>
         </ion-row>
+
         <ion-row>
           <ion-col>
             <ion-input label="Digite o setor" label-placement="floating" fill="outline" placeholder="Digite o setor" clear-input="true"></ion-input>
           </ion-col>
         </ion-row>
+
         <ion-row>
           <ion-col size="4">
             <ion-label color="dark">Data</ion-label>
@@ -45,6 +45,7 @@
             <ion-label color="dark">Término</ion-label>
           </ion-col>
         </ion-row>
+
         <ion-row>
           <ion-col size="4">
             <ion-input type="date" label="dd/mm/aaaa" label-placement="floating" fill="outline"></ion-input>
@@ -56,6 +57,7 @@
             <ion-input type="time" label="--:--" label-placement="floating" fill="outline"></ion-input>
           </ion-col>
         </ion-row>
+
       </ion-grid>
     </ion-card-content>
   </ion-card>
@@ -66,8 +68,8 @@
         <ion-card-title class="ion-title-margin">Equipamentos de Proteção Individual</ion-card-title>
       </ion-item>
     </ion-card-header>
+
     <ion-card-content>
-      <ion-list>
         <ion-item lines="none">
           <ion-label>Setor onde o uso dos EPIs seja obrigatório?</ion-label>
         </ion-item>
@@ -78,8 +80,8 @@
             <ion-select-option value="na">NA</ion-select-option>
           </ion-select>
         </ion-item>
-      </ion-list>
-      <ion-list>
+
+
         <ion-item lines="none">
           <ion-label>Os funcionários estão utilizando EPIs adequados aos riscos?</ion-label>
         </ion-item>
@@ -90,8 +92,8 @@
             <ion-select-option value="na">NA</ion-select-option>
           </ion-select>
         </ion-item>
-      </ion-list>
-      <ion-list>
+
+
         <ion-item lines="none">
           <ion-label>Estado geral de conservação e higienização dos EPIs:</ion-label>
         </ion-item>
@@ -103,8 +105,8 @@
             <ion-select-option value="pessimo">PÉSSIMO</ion-select-option>
           </ion-select>
         </ion-item>
-      </ion-list>
-      <ion-list>
+
+
         <ion-item lines="none">
           <ion-label>Os EPIs estão sendo guardados em lugares adequados?</ion-label>
         </ion-item>
@@ -115,7 +117,6 @@
             <ion-select-option value="na">NA</ion-select-option>
           </ion-select>
         </ion-item>
-      </ion-list>
     </ion-card-content>
   </ion-card>
   <ion-card>
@@ -150,5 +151,5 @@
         </ion-row>
     </ion-card-content>
   </ion-card>
-  <ion-button shape="round" size="large" expand="block" routerLink="/detalhes">Continuar para Detalhes</ion-button>
+  <ion-button shape="round" size="large" expand="block" routerLink="/detalhes">Continuar para Resumo</ion-button>
 </ion-content>
