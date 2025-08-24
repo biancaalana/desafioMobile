@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Informacoes } from 'src/app/_modules/informacoes';
+import { InformacoesService } from 'src/app/_services/informacoes';
 
 @Component({
   selector: 'app-resumo',
@@ -9,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class ResumoPage implements OnInit {
 
   // Variáveis que vão alimentar os cards do resumo
-  setor = 'Produção';
+  info: Informacoes | undefined;
   data = '23/08/2025';
   inicio = '08:00';
   termino = '12:00';
@@ -22,8 +24,17 @@ export class ResumoPage implements OnInit {
   totalFuncionarios = 20;
   totalUsando = 18;
   totalNaoUsando = 2;
+  colaborador: string = 'Nenhum colaborador registrado';
 
-  constructor() { }
+  constructor(private informacoesService: InformacoesService) { 
+    this.info = informacoesService.getInfo();
+  }
 
   ngOnInit() { }
+
+  salvarInspecao() {}
+
+  infoInfomacoesSelecionado(informacoes: Informacoes) {
+    console.log(informacoes);
+  }
 }

@@ -8,6 +8,9 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
+  totalInspecoes: number = 12;
+  totalNaoConformidades: number = 3;
+
   constructor() {}
 
 }

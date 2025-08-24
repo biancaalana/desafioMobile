@@ -20,12 +20,24 @@
     </ion-card-header>
     <ion-card-content>
       <ion-row>
-        <ion-col><strong>Setor:</strong> {{ setor }}</ion-col>
-        <ion-col><strong>Data:</strong> {{ data }}</ion-col>
+        <ion-col>
+          <strong>Setor: </strong>
+          <ion-label *ngIf="info">{{ info.setor }}</ion-label>
+        </ion-col>
+        <ion-col>
+          <strong>Data: </strong>
+          <ion-label *ngIf="info">{{ info.data }}</ion-label>
+        </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col><strong>Início:</strong> {{ inicio }}</ion-col>
-        <ion-col><strong>Término:</strong> {{ termino }}</ion-col>
+        <ion-col>
+          <strong>Início: </strong> 
+          <ion-label *ngIf="info">{{ info.horaInicio }}</ion-label>
+        </ion-col>
+        <ion-col>
+          <strong>Término: </strong> 
+          <ion-label *ngIf="info">{{ info.horaTermino }}</ion-label>
+        </ion-col>
       </ion-row>
     </ion-card-content>
   </ion-card>
@@ -69,4 +81,19 @@
       </ion-row>
     </ion-card-content>
   </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="titulo">Colaboradores ({{ totalFuncionarios }})</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label>{{ colaborador }}</ion-label>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Botão de ir para resumo -->
+  <ion-button class="botao" shape="round" size="large" expand="block" routerLink="/" (click)="salvarInspecao()">
+    <ion-img class="icon margin" src="assets/save.png" slot="start"></ion-img>
+    <span>Finalizar Inspeção</span>
+  </ion-button>
 </ion-content>

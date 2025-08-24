@@ -28,7 +28,7 @@
   <!-- Adicionar colaboradores -->
   <ion-card>
     <ion-card-header>
-      <ion-card-title class="titulo">Colaboradores</ion-card-title>
+      <ion-card-title>Colaboradores</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-item>
@@ -58,6 +58,9 @@
   </ion-card>
 
   <!-- Botão de ir para resumo -->
-  <ion-button class="botao" shape="round" size="large" expand="block" routerLink="/resumo" (click)="enviarResumo()">Ver Resumo</ion-button>
+  <ion-button class="botao" shape="round" size="large" expand="block" routerLink="/resumo" (click)="enviarResumo()">
+    <ion-img class="icon margin" src="assets/relatorio.svg" slot="start"></ion-img>
+    <span>Ver Resumo</span>
+  </ion-button>
 
 </ion-content>

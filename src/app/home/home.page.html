@@ -9,11 +9,15 @@
 
 <ion-content [fullscreen]="true">
   <ion-card>
+
+    <!-- Menu Principal -->
     <ion-card-header>
       <ion-card-title class="titulo">Menu Principal</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-grid>
+
+        <!-- Nova Inspeção -->
         <ion-row routerLink="/checklist">
           <ion-col class="ion-grid-column-padding ion-grid-column-color-primary ion-grid-border-radius ion-grid-column-margin texto-branco">
             <ion-item lines="none" class="ion-item-transparent">
@@ -34,6 +38,8 @@
             </ion-item>
           </ion-col>
         </ion-row>
+
+        <!-- Histórico -->
         <ion-row routerLink="/historico">
           <ion-col class="ion-grid-column-padding ion-grid-column-color-light ion-grid-border-radius texto-preto">
             <ion-item lines="none">
@@ -58,6 +64,7 @@
     </ion-card-content>
   </ion-card>
   
+  <!-- Estatísticas Rápidas -->
   <ion-card>
     <ion-card-header>
       <ion-card-title class="titulo">Estatísticas Rápidas</ion-card-title>
@@ -65,11 +72,13 @@
     <ion-card-content>
       <ion-grid>
         <ion-row class="ion-justify-content-around">
+
+          <!-- Inspeções esse mês-->
           <ion-col size="5.5" class="ion-grid-column-estatisticas ion-grid-column-color-success-light ion-grid-border-radius">
             <ion-grid>
               <ion-row>
                 <ion-col>
-                  <ion-card-title color="success" class="estatisticas-text-size">12</ion-card-title>
+                  <ion-card-title color="success" class="estatisticas-text-size">{{ totalInspecoes }}</ion-card-title>
                 </ion-col>
               </ion-row>
               <ion-row>
@@ -80,11 +89,12 @@
             </ion-grid>
           </ion-col>
           
+          <!-- Não conformidades-->
           <ion-col size="5.5" class="ion-grid-column-estatisticas ion-grid-column-color-danger-light ion-grid-border-radius">
             <ion-grid>
               <ion-row>
                 <ion-col>
-                  <ion-card-title color="danger" class="estatisticas-text-size">3</ion-card-title>
+                  <ion-card-title color="danger" class="estatisticas-text-size">{{ totalNaoConformidades }}</ion-card-title>
                 </ion-col>
               </ion-row>
               <ion-row>
@@ -94,6 +104,7 @@
               </ion-row>
             </ion-grid>
           </ion-col>
+
         </ion-row>
       </ion-grid>
     </ion-card-content>
