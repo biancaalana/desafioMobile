@@ -48,10 +48,28 @@ export class ChecklistPage implements OnInit {
   // Envia os dados dos campos preenchidos
   submitForm() {
     if (this.informacoesForm.valid) {
-      this.informacoes.push(this.informacoesForm.value);
-      this.informacoesService.setInfo(this.informacoesForm.value);
+      const formData = this.informacoesForm.value;
+
+      const dataConvertida = this.converterData(formData.data);
+
+      let formInfo = {
+        setor: formData.setor,
+        data: dataConvertida,
+        horaInicio: formData.horaInicio,
+        horaTermino: formData.horaTermino
+      }
+
+      this.informacoes.push(formInfo);
+      this.informacoesService.setInfo(formInfo);
       this.informacoesForm.reset;
     }
+  }
+
+  converterData(dataString: string): string {
+    if (!dataString) return '';
+
+    const partes = dataString.split('-'); // ['2024', '08', '24']
+    return `${partes[2]}/${partes[1]}/${partes[0]}`; // '24/08/2024'
   }
 
   /*informacaoSelecionado(info: Informacoes) {
