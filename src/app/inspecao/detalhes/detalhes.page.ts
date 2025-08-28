@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Colaborador } from 'src/app/_modules/colaborador';
+import { InformacoesService } from 'src/app/_services/informacoes';
 
 @Component({
   selector: 'app-detalhes',
@@ -11,17 +14,27 @@ export class DetalhesPage implements OnInit {
 
   descricaoAtividade: string = '';
   observacoes: string = '';
-  novoColaborador: string = '';
-  colaboradores: string[] = [];
+  novoColaborador: FormGroup = new FormGroup({});
+  colaboradores: Colaborador[] = [];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private informacoesService: InformacoesService, private colaboradorFb: FormBuilder) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.initializeForm();
+    this.colaboradores.forEach(value => console.log(value.nome))
+   }
+
+  initializeForm() {
+    this.novoColaborador = this.colaboradorFb.group({
+      nome: ['']
+    });
+  }
 
   adicionarColaborador() {
-    if(this.novoColaborador.trim() !== '') {
-      this.colaboradores.push(this.novoColaborador.trim());
-      this.novoColaborador = '';
+    if(this.novoColaborador.valid) {
+      this.colaboradores.push(this.novoColaborador.value);
+      this.informacoesService.setColaborador(this.novoColaborador.value)
+      this.novoColaborador.reset();
     }
   }
 

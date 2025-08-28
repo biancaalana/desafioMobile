@@ -80,15 +80,15 @@
       </ion-item>
     </ion-card-header>
 
-    <ion-card-content>
+    <ion-card-content [formGroup]="equipamentoForm">
 
       <!-- Setor onde o uso dos EPIs seja obrigatório? -->
       <ion-item lines="none">
         <ion-label>Setor onde o uso dos EPIs seja obrigatório?</ion-label>
       </ion-item>
       <ion-item lines="none">
-        <ion-select label-placement="uso-obrigatorio" placeholder="SIM | NÃO | NA">
-          <ion-select-option *ngFor="let epi of epis" value="{{ epi }}">{{ epi }}</ion-select-option>
+        <ion-select label-placement="uso-obrigatorio" placeholder="SIM | NÃO | NA" formControlName="epiObrigatorio">
+          <ion-select-option *ngFor="let epi of epis; index as i" value="{{ epi }}">{{ epi }}</ion-select-option>
         </ion-select>
       </ion-item>
 
@@ -97,7 +97,7 @@
         <ion-label>Os funcionários estão utilizando EPIs adequados aos riscos?</ion-label>
       </ion-item>
       <ion-item lines="none">
-        <ion-select label-placement="utilizando" placeholder="SIM | NÃO | NA">
+        <ion-select label-placement="utilizando" placeholder="SIM | NÃO | NA" formControlName="epiAdequado">
           <ion-select-option *ngFor="let epi of epis" value="{{ epi }}">{{ epi }}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -107,7 +107,7 @@
         <ion-label>Estado geral de conservação e higienização dos EPIs:</ion-label>
       </ion-item>
       <ion-item lines="none">
-        <ion-select label-placement="estado" placeholder="SATISFATÓRIO | REGULAR | RUIM | PÉSSIMO">
+        <ion-select label-placement="estado" placeholder="SATISFATÓRIO | REGULAR | RUIM | PÉSSIMO" formControlName="epiConservacao">
           <ion-select-option *ngFor="let estadoEpi of estadoEpis" value="{{ estadoEpi }}">{{ estadoEpi
             }}</ion-select-option>
         </ion-select>
@@ -118,7 +118,7 @@
         <ion-label>Os EPIs estão sendo guardados em lugares adequados?</ion-label>
       </ion-item>
       <ion-item lines="none">
-        <ion-select label-placement="armazenamento" placeholder="SIM | NÃO | NA">
+        <ion-select label-placement="armazenamento" placeholder="SIM | NÃO | NA" formControlName="epiLugar">
           <ion-select-option *ngFor="let epi of epis" value="{{ epi }}">{{ epi }}</ion-select-option>
         </ion-select>
       </ion-item>
@@ -133,7 +133,7 @@
         <ion-card-title class="ion-title-margin">Contagem de Funcionários</ion-card-title>
       </ion-item>
     </ion-card-header>
-    <ion-card-content>
+    <ion-card-content [formGroup]="colaboradorForm">
 
       <!-- Total Colaboradores -->
       <ion-row>
@@ -156,11 +156,11 @@
       <ion-row>
         <ion-col size="6">
           <!-- Usando EPI -->
-          <ion-input type="number" placeholder="0" fill="outline" [(ngModel)]="usandoEpi"></ion-input>
+          <ion-input type="number" placeholder="0" fill="outline" formControlName="usandoEpi" [(ngModel)]="usandoEpi"></ion-input>
         </ion-col>
         <ion-col size="6">
           <!-- Não usando EPI -->
-          <ion-input type="number" placeholder="0" fill="outline" [(ngModel)]="naoUsandoEpi"></ion-input>
+          <ion-input type="number" placeholder="0" fill="outline" formControlName="naoUsando" [(ngModel)]="naoUsandoEpi"></ion-input>
         </ion-col>
       </ion-row>
     </ion-card-content>

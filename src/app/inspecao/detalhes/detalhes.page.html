@@ -30,15 +30,15 @@
     <ion-card-header>
       <ion-card-title>Colaboradores</ion-card-title>
     </ion-card-header>
-    <ion-card-content>
+    <ion-card-content [formGroup]="novoColaborador">
       <ion-item>
-        <ion-input placeholder="Nome do colaborador" [(ngModel)]="novoColaborador"></ion-input>
+        <ion-input placeholder="Nome do colaborador" formControlName="nome"></ion-input>
         <ion-button slot="end" (click)="adicionarColaborador()">Adicionar</ion-button>
       </ion-item>
 
       <ion-list>
         <ion-item *ngFor="let colaborador of colaboradores; let i = index">
-          <ion-label>{{ colaborador }}</ion-label>
+          <ion-label>{{ colaborador.nome }}</ion-label>
           <ion-button fill="clear" color="danger" slot="end" (click)="removerColaborador(i)">
             <ion-icon name="trash-outline"></ion-icon>
           </ion-button>

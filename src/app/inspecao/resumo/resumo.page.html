@@ -44,6 +44,7 @@
     </ion-card-content>
   </ion-card>
 
+  <!-- Checklist de EPIs-->
   <ion-card>
     <ion-card-header>
       <ion-card-title class="titulo">Checklist de EPIs</ion-card-title>
@@ -52,48 +53,68 @@
       <ion-grid>
         <ion-row>
           <ion-col size="6"><strong>EPIs Obrigatórios:</strong></ion-col>
-          <ion-col size="6">{{ epiObrigatorio }}</ion-col>
+          <ion-col size="6">
+            <ion-label *ngIf="equipamento">{{ equipamento.epiObrigatorio }}</ion-label>
+          </ion-col>
         </ion-row>
         <ion-row>
           <ion-col size="6"><strong>Funcionários Usando EPIs:</strong></ion-col>
-          <ion-col size="6">{{ usandoEpi }}</ion-col>
+          <ion-col size="6">
+            <ion-label *ngIf="equipamento">{{ equipamento.epiAdequado }}</ion-label>
+          </ion-col>
         </ion-row>
         <ion-row>
           <ion-col size="6"><strong>Estado de Conservação:</strong></ion-col>
-          <ion-col size="6">{{ estadoEpi }}</ion-col>
+          <ion-col size="6">
+            <ion-label *ngIf="equipamento">{{ equipamento.epiConservacao }}</ion-label>
+          </ion-col>
         </ion-row>
         <ion-row>
           <ion-col size="6"><strong>Armazenamento Adequado:</strong></ion-col>
-          <ion-col size="6">{{ armazenamentoEpi }}</ion-col>
+          <ion-col size="6">
+            <ion-label *ngIf="equipamento">{{ equipamento.epiLugar }}</ion-label>
+          </ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-content>
   </ion-card>
 
-
+  <!-- Estatísticas -->
   <ion-card>
     <ion-card-header>
       <ion-card-title class="titulo">Estatísticas</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-row>
-        <ion-col><strong>Total:</strong> {{ totalFuncionarios }}</ion-col>
-        <ion-col><strong>Usando EPI:</strong> {{ totalUsando }}</ion-col>
-        <ion-col><strong>Não Usando:</strong> {{ totalNaoUsando }}</ion-col>
+        <ion-col>
+          <strong>Total: </strong> 
+          <ion-label *ngIf="quantidadeColaborador">{{ quantidadeColaborador.total }}</ion-label>
+        </ion-col>
+        <ion-col>
+          <strong>Usando EPI: </strong> 
+          <ion-label *ngIf="quantidadeColaborador">{{ quantidadeColaborador.usandoEpi }}</ion-label>
+        </ion-col>
+        <ion-col>
+          <strong>Não Usando: </strong> 
+          <ion-label *ngIf="quantidadeColaborador">{{ quantidadeColaborador.naoUsando }}</ion-label>
+        </ion-col>
       </ion-row>
     </ion-card-content>
   </ion-card>
 
+  <!-- Colaboradores -->
   <ion-card>
     <ion-card-header>
-      <ion-card-title class="titulo">Colaboradores ({{ totalFuncionarios }})</ion-card-title>
+      <ion-card-title class="titulo">Colaboradores (<ion-label *ngIf="quantidadeColaborador">{{ quantidadeColaborador.total }}</ion-label>)
+      </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-label>{{ colaborador }}</ion-label>
+      <ion-label *ngIf="!colaboradores">{{ colaborador }}</ion-label>
+      <ion-label *ngIf="colaboradores">{{ colaboradores.nome }}</ion-label>
     </ion-card-content>
   </ion-card>
 
-  <!-- Botão de ir para resumo -->
+  <!-- Botão de ir para finalizar a inspeção -->
   <ion-button class="botao" shape="round" size="large" expand="block" routerLink="/" (click)="salvarInspecao()">
     <ion-img class="icon margin" src="assets/save.png" slot="start"></ion-img>
     <span>Finalizar Inspeção</span>
