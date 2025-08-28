@@ -17,19 +17,29 @@ export class ResumoPage implements OnInit {
   info: Informacoes | undefined;
   equipamento: Equipamento | undefined;
   quantidadeColaborador: QuantidadeColaborador | undefined;
-  colaboradores: Colaborador | undefined;
+  //colaboradores: Colaborador | undefined;
   listaColaboradores: Colaborador[] = [];
   
-  colaborador: string = 'Nenhum colaborador registrado';
+  listaVazia: string = 'Nenhum colaborador registrado';
 
   constructor(private informacoesService: InformacoesService) { 
     this.info = informacoesService.getInfo();
     this.equipamento = informacoesService.getEquipamento();
     this.quantidadeColaborador = informacoesService.getQuantColaborador();
-    this.colaboradores = informacoesService.getColaborador();
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    // Carrega a lista de colaboladores do serviço
+    this.listaColaboradores = this.informacoesService.getColaboradores();
+  }
 
-  salvarInspecao() {}
+  // Obtém a quantidade de colaboradores da lista
+  getQuantidadeColaboradores(): number {
+    return this.informacoesService.getQuantidadeColaboradores();
+  }
+
+  salvarInspecao() {
+    // Limpa a lista de colaboradores ao salvar
+    this.informacoesService.clearAllData();
+  }
 }

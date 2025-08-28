@@ -105,16 +105,28 @@
   <!-- Colaboradores -->
   <ion-card>
     <ion-card-header>
-      <ion-card-title class="titulo">Colaboradores (<ion-label *ngIf="quantidadeColaborador">{{ quantidadeColaborador.total }}</ion-label>)
+      <ion-card-title class="titulo">Colaboradores (<ion-label *ngIf="listaColaboradores">{{ getQuantidadeColaboradores() }}</ion-label>)
       </ion-card-title>
     </ion-card-header>
-    <ion-card-content>
-      <ion-label *ngIf="!colaboradores">{{ colaborador }}</ion-label>
-      <ion-label *ngIf="colaboradores">{{ colaboradores.nome }}</ion-label>
+
+    <!-- Lista vazia -->
+    <ion-card-content *ngIf="listaColaboradores.length <= 0">
+      <ion-label >{{ listaVazia }}</ion-label>
+    </ion-card-content>
+
+    <!-- Lista com um item ou mais -->
+    <ion-card-content *ngIf="listaColaboradores">
+      <ion-list>
+        <ion-item lines="none" *ngFor="let colaborador of listaColaboradores">
+          <ion-icon name="person-circle-outline" size="large" slot="start"></ion-icon>
+          <ion-label>{{ colaborador.nome }}</ion-label>
+        </ion-item>
+      </ion-list>
     </ion-card-content>
   </ion-card>
 
   <!-- Botão de ir para finalizar a inspeção -->
+  <!-- Nessário ajustar via Angular para redirecionar para a página inicial, somente após adicionar os dados no banco -->
   <ion-button class="botao" shape="round" size="large" expand="block" routerLink="/" (click)="salvarInspecao()">
     <ion-img class="icon margin" src="assets/save.png" slot="start"></ion-img>
     <span>Finalizar Inspeção</span>

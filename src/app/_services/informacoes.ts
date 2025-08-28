@@ -12,7 +12,9 @@ export class InformacoesService {
   private informacoes: Informacoes | undefined;
   private equipamentos: Equipamento |undefined;
   private quantColaboradores: QuantidadeColaborador | undefined;
-  private colaborador: Colaborador | undefined;
+  private listaColaboradores: Colaborador[] = [];
+
+  // Informações Básicas
 
   setInfo(informacoes: Informacoes) {
     this.informacoes = informacoes;
@@ -22,6 +24,17 @@ export class InformacoesService {
     return this.informacoes;
   }
 
+  clearInfo() {
+    this.informacoes = {
+      setor: '',
+      data: '',
+      horaInicio: '',
+      horaTermino: ''
+    };
+  }
+
+  // Equipamentos de proteção individual
+
   setEquipamento(equipamentos: Equipamento) {
     this.equipamentos = equipamentos;
   }
@@ -29,6 +42,17 @@ export class InformacoesService {
   getEquipamento() {
     return this.equipamentos;
   }
+
+  clearEquipamento() {
+    this.equipamentos = {
+      epiObrigatorio: '',
+      epiAdequado: '',
+      epiConservacao: '',
+      epiLugar: ''
+    };
+  }
+
+  // Quantidade colaboradores com e sem EPI
 
   setQuantColaborador(colaborador: QuantidadeColaborador) {
     this.quantColaboradores = colaborador;
@@ -38,11 +62,43 @@ export class InformacoesService {
     return this.quantColaboradores;
   }
 
-  setColaborador(colaborador: Colaborador) {
-    this.colaborador = colaborador;
+  clearQuantColaborador() {
+    this.quantColaboradores = {
+      usandoEpi: 0,
+      naoUsando: 0,
+      total: 0
+    };
   }
 
-  getColaborador() {
-    return this.colaborador;
+  // Lista Colaboradores
+  
+  setColaboradores(colaboradores: Colaborador[]) {
+    this.listaColaboradores = [...colaboradores];
+  }
+
+  getColaboradores(): Colaborador[] {
+    return [...this.listaColaboradores];
+  }
+
+  clearColaboradores() {
+    this.listaColaboradores = [];
+  }
+
+  getQuantidadeColaboradores(): number {
+    return this.listaColaboradores.length;
+  }
+
+  colaboradorJaExiste(nome: string): boolean {
+    return this.listaColaboradores.some(c => 
+      c.nome.toLowerCase().trim() === nome.toLowerCase().trim()
+    );
+  }
+
+  // Limpa todos os campos após salvar os dados 
+  clearAllData() {
+    this.clearInfo();
+    this.clearEquipamento();
+    this.clearQuantColaborador();
+    this.clearColaboradores();
   }
 }
