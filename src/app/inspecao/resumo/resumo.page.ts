@@ -39,7 +39,9 @@ export class ResumoPage implements OnInit {
   }
 
   salvarInspecao() {
-    // Limpa a lista de colaboradores ao salvar
-    this.informacoesService.clearAllData();
+    this.informacoesService.clearInfo();
+    this.informacoesService.clearEquipamento();
+    this.informacoesService.clearColaboradores();
+    this.informacoesService.clearQuantColaborador();
   }
 }

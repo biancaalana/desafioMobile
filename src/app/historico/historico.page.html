@@ -1,16 +1,36 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
+    <!-- Botão Voltar -->
+    <ion-buttons slot="start" style="color: black">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>historico</ion-title>
+    <div class="toolbar-titles">
+      <span class="titulo-principal">Histórico</span>
+      <span class="subtitulo-secundario">Inspeções anteriores</span>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">historico</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card>
+    <ion-card-header>
+      <!-- Mostra quantas inspeções estão sendo exibidas -->
+      <p *ngIf="opcaoFiltro" style="font-size: 12px; color: #666;">
+        Filtro ativo: {{ getFiltroAtivo() }} | {{ inspecoesFiltradas.length }} inspeção(ões)
+      </p>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button size="small" fill="outline" color="dark" (click)="presentAlert()">
+        <ion-icon slot="start" name="filter-outline"></ion-icon>
+        <ion-label>Filtrar</ion-label>
+      </ion-button>
+      <ion-list>
+        <ion-item *ngFor="let inspecao of inspecoesFiltradas">
+          <ion-img class="icon" src="assets/relatorio_black.svg" slot="start"></ion-img>
+          <ion-label>{{ inspecao.setor }}</ion-label>
+          <ion-badge color="light">{{ inspecao.data }}</ion-badge>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

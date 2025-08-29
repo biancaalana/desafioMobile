@@ -94,7 +94,7 @@ export class InformacoesService {
     );
   }
 
-  // Limpa todos os campos após salvar os dados 
+  // Limpa todos os campos
   clearAllData() {
     this.clearInfo();
     this.clearEquipamento();
