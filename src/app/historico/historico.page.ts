@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HistoricoInspecoes } from '../_modules/historicoInspecoes';
 import { AlertController } from '@ionic/angular';
+import { HistoricoInspecoes } from '../_modules/historicoInspecoes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-historico',
@@ -10,73 +11,38 @@ import { AlertController } from '@ionic/angular';
 })
 export class HistoricoPage implements OnInit {
 
-  //inspecoes: String[] = ['Produção', 'Almoxarifado', 'Administrativo'];
   inspecoes: HistoricoInspecoes[] = [
-    { setor: 'Produção', data: '10/04/2025' },
-    { setor: 'Almoxarifado', data: '15/06/2025' },
-    { setor: 'Administrativo', data: '21/08/2025' }];
+    { 
+      setor: 'Produção', 
+      data: '10/04/2025' 
+    },
+    { 
+      setor: 'Almoxarifado', 
+      data: '15/06/2025' 
+    },
+    { 
+      setor: 'Administrativo', 
+      data: '21/08/2025' 
+    }];
 
   inspecoesFiltradas: HistoricoInspecoes[] = [];
 
-  opcaoFiltro: any;
+  opcaoFiltro: string = '';
 
-  constructor(private alertController: AlertController) {
+  constructor(private alertController: AlertController, private router: Router) {
     this.inspecoesFiltradas = [...this.inspecoes];
   }
 
   ngOnInit() {
-    this.ordenaPorData(true);
+    // Determina que sempre inicia ordenando por data decrescente (ultimas inspeções)
+    this.ordenaPorData(false);
   }
 
-  /*async presentAlert() {
-    const alert = await this.alertController.create({
-      header: 'Filtrar',
-      inputs: [{
-        name: 'selecione',
-        type: 'radio',
-        label: 'Selecione uma opção',
-        value: 'selecione',
-        checked: true
-      },
-      {
-        name: 'setor',
-        type: 'radio',
-        label: 'Setor',
-        value: 'setor',
-        checked: false
-      },
-      {
-        name: 'data',
-        type: 'radio',
-        label: 'Data',
-        value: 'data',
-        checked: false
-      }],
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancelar selecionado');
-          }
-        },
-        {
-          text: 'Selecionar',
-          handler: (data) => {
-            console.log('Valor selecionado: ' + data);
-            this.opcaoFiltro = data;
-            if (this.opcaoFiltro == undefined) {
-              console.log('Valor undefined');
-            } else {
-              console.log('Valor: ' + data)
-            }
-          }
-        }],
-    });
+  historicoResumo() {
+    this.router.navigate(['/resumo-historico'])
+  }
 
-    await alert.present();
-  }*/
-
+  // Método Alert Filtros
   async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Filtrar',
@@ -154,6 +120,7 @@ export class HistoricoPage implements OnInit {
     await alert.present();
   }
 
+  // Aplica o filtro conformo for selecionado
   aplicarFiltro() {
     if (!this.opcaoFiltro) {
       console.log('Nenhuma opção selecionada');
@@ -186,10 +153,7 @@ export class HistoricoPage implements OnInit {
     }
   }
 
-
-  verificaOpcaoFiltro() {
-    return this.opcaoFiltro == 'setor' ? this.filtrarPorSetorAZ() : this.ordenaPorData();
-  }
+  // Filtros por setor
 
   filtrarPorSetorAZ() {
     const inspecoesOrdenadas = this.inspecoesFiltradas.sort((a, b) => a.setor.localeCompare(b.setor))
@@ -200,6 +164,8 @@ export class HistoricoPage implements OnInit {
     const inspecoesOrdenadas = this.inspecoesFiltradas.sort((a, b) => b.setor.localeCompare(a.setor))
     return inspecoesOrdenadas;
   }
+
+  // Filtros por data
 
   ordenaPorData(crescente: boolean = true) { // Crescente ou Decrescente
     this.inspecoesFiltradas.sort((a, b) => {
@@ -226,16 +192,18 @@ export class HistoricoPage implements OnInit {
     this.inspecoesFiltradas = this.inspecoes.filter(inspecao => inspecao.data === data)
   }
 
+  // Limpa os filtros selecionados
   limparFiltros() {
     this.inspecoesFiltradas = [...this.inspecoes];
   }
 
+  // Converte a data de string para date
   private converterStringParaDate(dataString: string): Date {
     const [dia, mes, ano] = dataString.split('/');
     return new Date(parseInt(ano), parseInt(mes) - 1, parseInt(dia));
   }
 
-  // Método para debug - mostrar qual filtro está ativo
+  // Método para mostrar qual filtro está ativo
   getFiltroAtivo(): string {
     if (!this.opcaoFiltro) return 'Nenhum filtro ativo';
     
@@ -248,5 +216,11 @@ export class HistoricoPage implements OnInit {
       case 'ultimos-30': return 'Últimos 30 dias';
       default: return 'Filtro desconhecido';
     }
+  }
+
+  // Método para remover inspeção
+  removeInspecao(index: number) {
+    //this.inspecoes.splice(index, 1);
+    this.inspecoesFiltradas.splice(index, 1);
   }
 }

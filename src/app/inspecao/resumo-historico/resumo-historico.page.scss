@@ -1,0 +1,45 @@
+// FUNDO PAGINA
+ion-content {
+  --background: #dbe9ff; 
+}
+
+ion-card {
+  border-radius: 15px;
+}
+
+ion-card {
+  margin: 20px !important;
+  padding: 10px;
+}
+
+
+//titulo e subtitulo principais header
+ion-toolbar {
+  --background: #e4e4e4;
+  padding: 15px !important;
+}
+
+.toolbar-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.titulo-principal {
+  color: #000000;
+  font-weight: 700; 
+  font-size: 18px;  
+  padding-bottom: 5px;
+}
+
+.subtitulo-secundario {
+  color: #000000;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+// icons
+.icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}

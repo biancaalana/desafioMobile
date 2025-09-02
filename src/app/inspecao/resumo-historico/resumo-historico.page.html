@@ -1,0 +1,151 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <!-- Botão Voltar -->
+    <ion-buttons slot="start" style="color: black">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <div class="toolbar-titles">
+      <span class="titulo-principal">Resumo Inspeção</span>
+      <span class="subtitulo-secundario" *ngFor="let inspecao of resumo">{{ inspecao.informacoesBasicas.setor }}</span>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngFor="let inspecao of resumo">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Informações Básicas</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>
+            <h3>Setor</h3>
+            <p>{{ inspecao.informacoesBasicas.setor }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h3>Data</h3>
+            <p>{{ inspecao.informacoesBasicas.data }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h3>Horário</h3>
+            <p>{{ inspecao.informacoesBasicas.horaInicio }} - {{ inspecao.informacoesBasicas.horaTermino }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Card de Equipamentos -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Equipamentos de Proteção Individual</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>
+            <h3>EPI Obrigatório</h3>
+            <p>{{ inspecao.equipamentosIndividuais.epiObrigatorio }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h3>EPI Adequado</h3>
+            <p>{{ inspecao.equipamentosIndividuais.epiAdequado }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h3>Conservação</h3>
+            <p>{{ inspecao.equipamentosIndividuais.epiConservacao }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h3>EPI no Local</h3>
+            <p>{{ inspecao.equipamentosIndividuais.epiLugar }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Card de Quantidade de Colaboradores -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Quantidade de Colaboradores</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label>
+            <h3>Usando EPI</h3>
+            <p>{{ inspecao.quantColaboradores.usandoEpi }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h3>Não Usando EPI</h3>
+            <p>{{ inspecao.quantColaboradores.naoUsando }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h3>Total</h3>
+            <p>{{ inspecao.quantColaboradores.total }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Card de Descrição da Atividade -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Descrição da Atividade</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ inspecao.descricaoAtividade }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Card de Observaçõe -->
+    <ion-card *ngIf="inspecao.observacoes">
+      <ion-card-header>
+        <ion-card-title>Observações</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ inspecao.observacoes }}</p>
+      </ion-card-content>
+    </ion-card>
+    <ion-card *ngIf="!inspecao.observacoes">
+      <ion-card-header>
+        <ion-card-title>Observações</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Não houveram observações nessa inspeção.</p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Card de Colaboradores (array) -->
+    <ion-card *ngIf="inspecao.colaboradores && inspecao.colaboradores.length > 0">
+      <ion-card-header>
+        <ion-card-title>Colaboradores ({{ inspecao.colaboradores.length }})</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <!-- Aqui sim iteramos sobre o array de colaboradores -->
+          <ion-item *ngFor="let colaborador of inspecao.colaboradores; let i = index">
+            <ion-avatar slot="start">
+              <ion-icon name="person-outline" size="large"></ion-icon>
+            </ion-avatar>
+            <ion-label>
+              <h3>{{ colaborador.nome }}</h3>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+</ion-content>
