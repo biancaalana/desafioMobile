@@ -1,0 +1,52 @@
+ion-grid {
+    padding-top: 300px;
+}
+
+ion-col {
+    padding-left: 21px;
+    padding-right: 21px;
+}
+
+.align-itens {
+    display: flex;
+    justify-content: center;
+}
+.text-direction {
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo {
+    color: rgba(0, 0, 0, 0.781);
+    font-weight: 700;
+    padding-bottom: 16px;
+    font-size: 20px;
+    text-align: center;
+}
+
+ion-content {
+    --background: #dbe9ff;
+}
+
+ion-card {
+    border-radius: 15px;
+}
+
+ion-card {
+    margin: 20px !important;
+    padding: 10px;
+}
+
+.password-toggle {
+    cursor: pointer;
+    color: #666;
+}
+
+.forgot-password {
+    --color: rgba(0, 84, 233, 0.9);
+    font-size: 8px;
+}
+
+.align-itens ion-button {
+    --border-radius: 12px;
+}

@@ -1,0 +1,69 @@
+<ion-content [fullscreen]="true">
+  <ion-grid align-items-center>
+    <ion-row class="ion-justify-content-center align-center">
+      <ion-col>
+        <ion-card>
+          <ion-card-header>
+            <!--<ion-card-title>Login</ion-card-title>-->
+          </ion-card-header>
+          <ion-card-content>
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="text-direction">
+              <ion-card-title class="titulo">Login</ion-card-title>
+
+              <!-- E-mail -->
+              <ion-item>
+                <ion-input type="email" placeholder="E-mail" [clearInput]="true" formControlName="email"></ion-input>
+              </ion-item>
+              <!-- Mensagens de erro para email -->
+              <div class="error-messages" *ngIf="email?.invalid && email?.touched">
+                <ion-text color="danger" *ngIf="email?.errors?.['required']">
+                  <small>Email é obrigatório</small>
+                </ion-text>
+                <ion-text color="danger" *ngIf="email?.errors?.['email']">
+                  <small>Email deve ter um formato válido</small>
+                </ion-text>
+              </div>
+
+              <!-- Senha -->
+              <ion-item>
+                <ion-input [type]="showPassword ? 'text' : 'password'" placeholder="Senha" [clearInput]="true"
+                  formControlName="password"></ion-input>
+                <ion-icon slot="end" [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" class="password-toggle"
+                  (click)="togglePasswordVisibility()">
+                </ion-icon>
+              </ion-item>
+              <!-- Mensagens de erro para senha -->
+              <div class="error-messages" *ngIf="password?.invalid && password?.touched">
+                <ion-text color="danger" *ngIf="password?.errors?.['required']">
+                  <small>Senha é obrigatória</small>
+                </ion-text>
+                <ion-text color="danger" *ngIf="password?.errors?.['minlength']">
+                  <small>Senha deve ter pelo menos 6 caracteres</small>
+                </ion-text>
+              </div>
+
+              <!-- Cadastre-se / Esqueci a senha -->
+              <ion-item lines="none">
+                <ion-button slot="start" fill="clear" size="small" class="forgot-password" (click)="forgotPassword()">
+                  Esqueci a senha
+                </ion-button>
+              </ion-item>
+
+              <!-- Botão Entrar -->
+              <div class="align-itens">
+                <ion-button size="default" color="medium" type="submit">
+                  <ion-icon name="log-in-outline" slot="start"></ion-icon>
+                  Entrar
+                </ion-button>
+              </div>
+
+
+            </form>
+
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="align-center"></div>
+</ion-content>

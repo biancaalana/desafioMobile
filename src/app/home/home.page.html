@@ -4,6 +4,12 @@
       <span class="titulo-principal">Inspeção de EPIs</span>
       <span class="subtitulo-secundario">AELBRA - Segurança do Trabalho</span>
     </div>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="presentPopover($event)">
+        <ion-icon color="light" name="ellipsis-vertical" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -19,7 +25,8 @@
 
         <!-- Nova Inspeção -->
         <ion-row routerLink="/checklist">
-          <ion-col class="ion-grid-column-padding ion-grid-column-color-primary ion-grid-border-radius ion-grid-column-margin texto-branco">
+          <ion-col
+            class="ion-grid-column-padding ion-grid-column-color-primary ion-grid-border-radius ion-grid-column-margin texto-branco">
             <ion-item lines="none" class="ion-item-transparent">
               <ion-img class="icon" src="assets/relatorio.svg" slot="start"></ion-img>
               <ion-grid>
@@ -63,7 +70,7 @@
       </ion-grid>
     </ion-card-content>
   </ion-card>
-  
+
   <!-- Estatísticas Rápidas -->
   <ion-card>
     <ion-card-header>
@@ -74,7 +81,8 @@
         <ion-row class="ion-justify-content-around">
 
           <!-- Inspeções esse mês-->
-          <ion-col size="5.5" class="ion-grid-column-estatisticas ion-grid-column-color-success-light ion-grid-border-radius">
+          <ion-col size="5.5"
+            class="ion-grid-column-estatisticas ion-grid-column-color-success-light ion-grid-border-radius">
             <ion-grid>
               <ion-row>
                 <ion-col>
@@ -88,13 +96,15 @@
               </ion-row>
             </ion-grid>
           </ion-col>
-          
+
           <!-- Não conformidades-->
-          <ion-col size="5.5" class="ion-grid-column-estatisticas ion-grid-column-color-danger-light ion-grid-border-radius">
+          <ion-col size="5.5"
+            class="ion-grid-column-estatisticas ion-grid-column-color-danger-light ion-grid-border-radius">
             <ion-grid>
               <ion-row>
                 <ion-col>
-                  <ion-card-title color="danger" class="estatisticas-text-size">{{ totalNaoConformidades }}</ion-card-title>
+                  <ion-card-title color="danger" class="estatisticas-text-size">{{ totalNaoConformidades
+                    }}</ion-card-title>
                 </ion-col>
               </ion-row>
               <ion-row>
