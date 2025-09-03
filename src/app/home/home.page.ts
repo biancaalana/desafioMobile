@@ -13,7 +13,7 @@ export class HomePage {
   totalInspecoes: number = 12;
   totalNaoConformidades: number = 3;
 
-  constructor(private popoverController : PopoverController) {}
+  constructor(private popoverController: PopoverController) { }
 
   async presentPopover(ev: any) {
     const popover = await this.popoverController.create({

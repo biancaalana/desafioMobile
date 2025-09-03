@@ -1,6 +1,6 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, PopoverController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-popover',
@@ -13,17 +13,23 @@ export class PopoverComponent implements OnInit {
   constructor(
     private alertController: AlertController,
     private toastController: ToastController,
-    private router : Router
+    private router: Router,
+    private popoverController : PopoverController
   ) { }
 
   ngOnInit() { }
 
   sair() {
     this.router.navigate(['/login']);
-    return true;
+    this.fecharPopover();
+  }
+
+  async fecharPopover() {
+    await this.popoverController.dismiss();
   }
 
   async newUser() {
+    this.fecharPopover();
     const alert = await this.alertController.create({
       header: 'Novo Usuário',
       message: 'Digite seu nome, cpf, e-mail e senha:',
