@@ -42,7 +42,7 @@ export class PopoverComponent implements OnInit {
         {
           name: 'cpf',
           type: 'text',
-          placeholder: 'Somente números',
+          placeholder: 'CPF (Somente números)',
           attributes: {
             maxLenght: 11,
             inputMode: 'numeric'
@@ -56,7 +56,7 @@ export class PopoverComponent implements OnInit {
         {
           name: 'senha',
           type: 'password',
-          placeholder: 'Digite sua senha (mín. 6 caracteres)',
+          placeholder: 'Senha (mín. 6 caracteres)',
           attributes: {
             minlength: 6
           }
