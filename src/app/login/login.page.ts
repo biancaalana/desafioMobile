@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { AuthService } from '../_services/auth';
-import { Login } from '../_modules/usuario';
+import { Http } from '../_services/http';
 
 @Component({
   selector: 'app-login',
@@ -15,19 +15,20 @@ export class LoginPage implements OnInit {
   loginForm: FormGroup = new FormGroup({});
   showPassword = false;
 
-  private usuario : Login | undefined;
-
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private alertController: AlertController,
     private loadingController: LoadingController,
     private toastController: ToastController,
-    private authService : AuthService) {
+    private authService: AuthService,
+    private httpService: Http,
+  ) {
     this.initializeForm();
   }
 
   ngOnInit() {
+
   }
 
   get email() {
@@ -60,29 +61,41 @@ export class LoginPage implements OnInit {
 
       await loading.present();
 
-      try {
-        // Chamada da API
-        //await this.login(this.loginForm.value);
-        await this.authService.login(this.loginForm.value);
+      this.httpService.login(
+        this.loginForm.value.email,
+        this.loginForm.value.password
+      ).subscribe({
+        next: async (response) => {
+          await loading.dismiss();
 
-        await loading.dismiss();
+          // Usar o AuthService para salvar o token 
+          if (response && response.token) {
+            this.authService.setToken(response.token);
+          }
 
-        // Mostrar toast de sucesso
-        const toast = await this.toastController.create({
-          message: 'Login realizado com sucesso!',
-          duration: 2000,
-          position: 'top',
-          color: 'success'
-        });
-        await toast.present();
+          // Toast de sucesso
+          const toast = await this.toastController.create({
+            message: 'Login realizado com sucesso!',
+            duration: 2000,
+            position: 'top',
+            color: 'success'
+          });
+          await toast.present();
 
-        // Redirecionar para a página inicial
-        //this.router.navigate(['/home']);
-
-      } catch (error) {
-        await loading.dismiss();
-        await this.showErrorAlert('Erro no login', 'Email ou senha incorretos.');
-      }
+          // Navegar (agora deve funcionar porque usuarioEstaAutenticado() retorna true)
+          setTimeout(() => {
+            console.log('Usuário autenticado:', this.authService.usuarioEstaAutenticado());
+            this.router.navigateByUrl('/home').then((success) => {
+              console.log('Navegação sucesso:', success);
+            });
+          }, 500);
+        },
+        error: async (error) => {
+          await loading.dismiss();
+          console.error('Erro no login:', error);
+          await this.showErrorAlert('Erro no login', 'Email ou senha incorretos.');
+        }
+      });
     } else {
       await this.showErrorAlert('Formulário inválido', 'Por favor, verifique os campos e tente novamente.');
     }

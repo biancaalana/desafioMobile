@@ -1,6 +1,8 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AlertController, PopoverController, ToastController } from '@ionic/angular';
+import { AuthService } from '../_services/auth';
+import { Http } from '../_services/http';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-popover',
@@ -13,15 +15,67 @@ export class PopoverComponent implements OnInit {
   constructor(
     private alertController: AlertController,
     private toastController: ToastController,
-    private router: Router,
-    private popoverController : PopoverController
+    private popoverController: PopoverController,
+    private authService: AuthService,
+    private httpService: Http
   ) { }
 
   ngOnInit() { }
 
-  sair() {
-    this.router.navigate(['/login']);
-    this.fecharPopover();
+  // ========== MENSAGEM CONFIRMAÇÃO ==========
+  async sair() {
+    const alert = await this.alertController.create({
+      header: 'Confirmar Logout',
+      message: 'Tem certeza que deseja sair?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'alert-button-cancel'
+        },
+        {
+          text: 'Sair',
+          cssClass: 'alert-button-confirm',
+          handler: () => {
+            this.realizarLogout();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  // ========== MÉTODO DE LOGOUT ==========
+  private async realizarLogout() {
+    try {
+      // Fechar o popover primeiro
+      await this.fecharPopover();
+
+      // Toast de despedida
+      const toast = await this.toastController.create({
+        message: 'Logout realizado com sucesso!',
+        duration: 2000,
+        position: 'top',
+        color: 'success'
+      });
+      await toast.present();
+
+      // Chamar o método logout do AuthService (que limpa tudo e navega)
+      this.authService.logout();
+
+    } catch (error) {
+      console.error('Erro no logout:', error);
+
+      // Toast de erro
+      const toast = await this.toastController.create({
+        message: 'Erro ao fazer logout!',
+        duration: 2000,
+        position: 'top',
+        color: 'danger'
+      });
+      await toast.present();
+    }
   }
 
   async fecharPopover() {
@@ -74,7 +128,7 @@ export class PopoverComponent implements OnInit {
             // Validar se todos os campos foram preenchidos
             if (!data.nome || !data.cpf || !data.email || !data.senha) {
               this.showToast('Preencha todos os campos!', 'danger');
-              return false; // Mantém o alert aberto
+              return false;
             }
 
             // Validar nome
@@ -86,7 +140,7 @@ export class PopoverComponent implements OnInit {
             // Validar CPF
             if (!this.isValidCPF(data.cpf)) {
               this.showToast('CPF inválido!', 'danger');
-              return false; // Mantém o alert aberto
+              return false;
             }
 
             // Validar email
@@ -101,14 +155,9 @@ export class PopoverComponent implements OnInit {
               return false;
             }
 
-            // Se chegou até aqui, está tudo OK
-            this.showToast('Usuário cadastrado com sucesso!', 'success');
-            console.log('Dados do usuário:', data);
-
-            // Aqui você pode chamar sua API para salvar o usuário
-            // await this.saveUser(data);
-
-            return true; // Fecha o alert
+            // Chamar a API para criar o usuário
+            this.criarNovoUsuario(data);
+            return true;
           }
         }
       ]
@@ -116,6 +165,71 @@ export class PopoverComponent implements OnInit {
     await alert.present();
   }
 
+  // ========== CRIAR NOVO USUÁRIO VIA API ==========
+  private async criarNovoUsuario(userData: any) {
+    try {
+      const token = this.authService.getToken();
+
+      if (!token) {
+        this.showToast('Você precisa estar logado para criar um usuário!', 'danger');
+        return;
+      }
+
+      console.log('🚀 Enviando dados:', {
+        nome: userData.nome,
+        email: userData.email,
+        senha: userData.senha,
+        cpf: userData.cpf.replace(/[^\d]/g, ''),
+        token: token.substring(0, 20) + '...' // Log parcial do token por segurança
+      });
+
+      // Usar firstValueFrom em vez de toPromise()
+      const response = await firstValueFrom(
+        this.httpService.createUser(
+          userData.nome,
+          userData.email,
+          userData.senha,
+          userData.cpf.replace(/[^\d]/g, ''), // Remove formatação do CPF
+          token
+        )
+      );
+
+      console.log('📝 Response completo:', response);
+      console.log('📝 Tipo do response:', typeof response);
+      console.log('📝 Response é null?', response === null);
+      console.log('📝 Response é undefined?', response === undefined);
+
+      // Verificar se a criação foi bem-sucedida mesmo com response null
+      if (response === null || response === undefined) {
+        // Pode ser que o backend retorne 204 (No Content) ou similar
+        console.log('⚠️ Response vazio, mas pode ter sido criado com sucesso');
+        this.showToast('Usuário criado com sucesso!', 'success');
+      } else {
+        console.log('✅ Usuário criado:', response);
+        this.showToast('Usuário criado com sucesso!', 'success');
+      }
+
+    } catch (error) {
+      console.error('❌ Erro completo:', error);
+
+      if (error && typeof error === 'object' && 'status' in error) {
+        const httpError = error as { status: number };
+
+        if (httpError.status === 401) {
+          this.showToast('Sessão expirada. Faça login novamente.', 'danger');
+          this.authService.logout();
+        } else if (httpError.status === 200 || httpError.status === 201 || httpError.status === 204) {
+          // Às vezes o status é de sucesso, mas o response vem null
+          console.log('✅ Status de sucesso detectado no error handler');
+          this.showToast('Usuário criado com sucesso!', 'success');
+        } else {
+          this.showToast(`Erro ao criar usuário! Status: ${httpError.status}`, 'danger');
+        }
+      } else {
+        this.showToast('Erro de conexão!', 'danger');
+      }
+    }
+  }
   // ========== VALIDAÇÃO SIMPLES DE CPF ==========
   private isValidCPF(cpf: string): boolean {
     // Remove tudo que não é número
@@ -165,27 +279,4 @@ export class PopoverComponent implements OnInit {
     });
     await toast.present();
   }
-
-  // ========== MÉTODO PARA SALVAR USUÁRIO (EXEMPLO) ==========
-  private async saveUser(userData: any) {
-    try {
-      // Exemplo de como você salvaria os dados
-      const user = {
-        nome: userData.nome,
-        cpf: userData.cpf.replace(/[^\d]/g, ''), // Remove formatação
-        email: userData.email,
-        senha: userData.senha
-      };
-
-      console.log('Salvando usuário:', user);
-
-      // Aqui você faria a chamada para sua API
-      // const response = await this.http.post('/api/users', user).toPromise();
-
-    } catch (error) {
-      console.error('Erro ao salvar usuário:', error);
-      this.showToast('Erro ao salvar usuário!', 'danger');
-    }
-  }
 }
-

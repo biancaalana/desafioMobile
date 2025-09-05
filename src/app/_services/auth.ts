@@ -1,19 +1,37 @@
-import { Injectable } from '@angular/core';
-import { Login } from '../_modules/usuario';
+import { Injectable, OnInit } from '@angular/core';
+import { User } from '../_modules/usuario';
 import { Router } from '@angular/router';
+import { Http } from './http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-  private usuario : Login | any;
+export class AuthService implements OnInit {
+  private usuario : User | any;
   private usuarioAutenticado : boolean = false;
+  private token: string = '';
 
   constructor(
-    private router : Router
-  ) {}
+    private router : Router,
+    private httpService : Http,
+  ) {
+    // Verificar se já tem token salvo ao inicializar
+    this.checkAuthStatus();
+  }
+
+  ngOnInit() {
+    
+  }
+
+  checkAuthStatus() {
+    const savedToken = localStorage.getItem('authToken');
+    if (savedToken) {
+      this.token = savedToken;
+      this.usuarioAutenticado = true;
+    }
+  }
   
-  setUsuario(usuario : Login) {
+  setUsuario(usuario : User) {
     this.usuario = usuario;
   }
 
@@ -21,23 +39,37 @@ export class AuthService {
     return this.usuario;
   }
 
-  login(credentials: any): Promise<any> {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        // Simular validação (substituir pela lógica real)
-        if (credentials.email === 'usuario@exemplo.com' && credentials.password === '123456') {
-          resolve({ success: true, token: 'fake-jwt-token' });
-          this.usuarioAutenticado = true;
-          this.router.navigate(['/home']);
-        } else {
-          reject({ error: 'Credenciais inválidas' });
-          this.usuarioAutenticado = false;
-        }
-      }, 1500);
-    });
+  setToken(token: string) {
+    this.token = token;
+    this.usuarioAutenticado = true; // ← IMPORTANTE: Definir como autenticado
+    localStorage.setItem('authToken', token);
+  }
+
+  getToken() {
+    // Sempre verificar o localStorage também
+    if (!this.token) {
+      this.token = localStorage.getItem('authToken') || '';
+    }
+    return this.token;
   }
 
   usuarioEstaAutenticado() {
+    // Verificar tanto a propriedade quanto o localStorage
+    if (!this.usuarioAutenticado) {
+      const savedToken = localStorage.getItem('authToken');
+      if (savedToken) {
+        this.token = savedToken;
+        this.usuarioAutenticado = true;
+      }
+    }
     return this.usuarioAutenticado;
+  }
+
+  logout() {
+    this.usuarioAutenticado = false;
+    this.token = '';
+    this.usuario = null;
+    localStorage.removeItem('authToken');
+    this.router.navigate(['/login']);
   }
 }
